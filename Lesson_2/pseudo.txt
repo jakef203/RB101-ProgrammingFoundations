@@ -1,0 +1,40 @@
+START
+
+GET first number from user and SET to NUM1.
+GET second number from user and SET to NUM2.
+RETURN NUM1 + NUM2
+
+END
+
+START
+
+GET array of strings, SET to arr_str.
+SET iterator = 1
+SET new_string = ""
+
+WHILE iterator <= length of arr_str
+  SET current_string = value within arr_str at space iterator.
+  Concatenate current_string to end of new_string.
+  
+RETURN new_string.
+
+END
+
+START
+
+SET array of integers to arr_integers.
+SET iterator = 1
+SET new_array to empty.
+WHILE iterator <= length of arr_integers.
+  IF iterator is even increase iterator by 1 and continue with while loop.
+  ELSE append the value of arr_integers at space iterator to new_array.
+  
+RETURN new_array.
+
+END
+
+
+
+
+
+
