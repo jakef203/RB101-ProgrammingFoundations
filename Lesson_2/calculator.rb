@@ -1,63 +1,72 @@
-
+require 'yaml'
+require 'pry'
 # ask the user for two numbers
 # ask the user for an operation to perform
 # perform the operation on the two numbers
 # output the result
 
 # answer = Kernel.gets()
-# Kernel.puts(answer) 
+# Kernel.puts(answer)
+MESSAGES = YAML.load_file('calculator_messages.yml')
+LANGUAGE = 'en'
 
+def messages(message, lang='en')
+  MESSAGES[lang][message]
+end
 
-def prompt(message)
+def prompt(key)
+  message = messages(key, LANGUAGE)
   Kernel.puts("=> #{message}")
+  "=> #{message}"
 end
 
 def valid_number?(num)
-  num.to_i() != 0
+  num.to_i().to_s() == num || num.to_f().to_s() == num
 end
 
 def operation_to_message(op)
   case op
-  when '1' then 'Adding'
-  when '2' then 'Subtracting'
-  when '3' then 'Multiplying'
-  when '4' then 'Dividing'
+  when '1' then return 'Adding'
+  when '2' then return 'Subtracting'
+  when '3' then return 'Multiplying'
+  when '4' then return 'Dividing'
   end
 end
 
-prompt("Welcome to Calculator! Enter your name:")
+prompt('welcome')
 name = ''
-loop do 
+loop do
   name = Kernel.gets().chomp
   if name.empty?()
-    prompt("Make sure to use a valid name.")
+    prompt('valid_name')
   else
     break
   end
 end
 
-loop do 
+loop do
   number1 = nil
   loop do
-    prompt("What's the first number?")
+    prompt('first_number')
     number1 = Kernel.gets().chomp()
     if valid_number?(number1)
       break
     else
-      prompt("Hmm... that doesn't look like a valid number.")
+      prompt('valid_number')
     end
   end
 
   number2 = nil
   loop do
-    prompt("What's the second number?")
+    prompt('second_number')
     number2 = Kernel.gets().chomp()
     if valid_number?(number2)
       break
     else
-      prompt("Hmm... that doesn't look like a valid number.")
+      prompt('valid_number')
     end
   end
+  # binding.pry
   operator_prompt = <<-MSG
     What operation would you like to perform?
     1) add
@@ -69,35 +78,38 @@ loop do
   operator = ''
   loop do
     operator = Kernel.gets().chomp()
-    if %w(1 2 3 4).include?(operator)
+    if %w(1 2 3).include?(operator) && (operator )
+      break
+    elsif operator == '4' && number2.to_f == 0.0
+      prompt('divide_by_zero')
+    elsif operator == '4' && number2.to_f != 0.0
       break
     else
-      prompt("Must choose 1, 2, 3, or 4.")
+      prompt('choose_1to4')
     end
   end
+  # binding.pry
+  prompt('operation_on_numbers')
 
-  prompt("#{operation_to_message(operator)} the two numbers...")
-
-  result = 
+  result =
     case operator
     when '1'
-      number1.to_i() + number2.to_i()
+      number1.to_f() + number2.to_f()
     when '2'
-      number1.to_i() - number2.to_i()
+      number1.to_f() - number2.to_f()
     when '3'
-      number1.to_i() * number2.to_i()
+      number1.to_f() * number2.to_f()
     when '4'
-      (number1.to_f() / number2.to_f()).round(2)
+      number1.to_f() / number2.to_f()
     end
-  # prompt("The result is #{result}.")
-  prompt("The result is %.2f" % [result])
+  # binding.pry
+  binding.pry
+  format(prompt('result'), result)# right now formatting with prompt function and this line doesn't work
+                                  # correctly.  Using puts it does by need to return the string in prompt.
 
-  prompt("Do you want to perform another calculation? (Y to calculate again)")
+  prompt('another_calculation') #Doesn't work correctly with prompt right now.
   answer = Kernel.gets().chomp()
   break unless answer.downcase.start_with?('y')
 end
 
-  prompt("Thank you for your time.")
-
-
-  
+prompt('end_phrase')
