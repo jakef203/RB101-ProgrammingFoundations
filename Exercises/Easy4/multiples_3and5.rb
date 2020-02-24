@@ -14,15 +14,15 @@
 #   arr_multiples.sum
 # end
 ## Their solution, much simpler
-def multisum(max_value)
-  sum = 0
-  1.upto(max_value) do |num|
-    if num % 3 == 0 || num % 5 == 0
-      sum += num
-    end
-  end
-  sum
-end
+# def multisum(max_value)
+#   sum = 0
+#   1.upto(max_value) do |num|
+#     if num % 3 == 0 || num % 5 == 0
+#       sum += num
+#     end
+#   end
+#   sum
+# end
 ## Done with inject
 def multisum(max_value)
   (1..max_value).inject(0) do |sum, n|
