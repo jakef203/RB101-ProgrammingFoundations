@@ -1,32 +1,14 @@
 
-# def greeting
-#     puts 'Hello!'
-# end
-
-# number_of_greetings = 2
-
-# while number_of_greetings > 0
-#     greeting
-#     number_of_greetings -= 1
-# end
-
-counter = 0
-loop do
-    a = 2
-    counter = 2
-    counter += 1
-    loop do
-        counter += 1
-        puts "Counter innermost loop: #{counter}"
-        break
-    end
-    puts "Counter inner loop: #{counter}"
-    break
+def greeting
+    puts 'Hello!'
 end
-puts "Counter outer = #{counter}"
-puts a
 
+number_of_greetings = 2
 
+while number_of_greetings > 0
+    greeting
+    number_of_greetings -= 1
+end
 
 # loop do
 #   number = rand(1..10)   # a random number between 1 and 10

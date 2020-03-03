@@ -1,4 +1,4 @@
-
+require 'io/console'
 VALID_CHOICES = { 'r' => 'rock',
                   'p' => 'paper',
                   'sc' => 'scissors',
@@ -13,6 +13,17 @@ def clear
   system('clear') || system('cls')
 end
 
+def display_welcome_message
+  prompt("Welcome to Rock, Paper, Scissors, Spock, Lizard!")
+  prompt("First to win 5 games will be the grand winner.")
+end
+
+def continue_game
+  prompt("Press any key to begin game.")
+  STDIN.getch
+  print "            \r"
+end
+
 def win?(first, second)
   what_beats_what = { 'rock' => ['scissors', 'lizard'],
                       'paper' => ['spock', 'rock'],
@@ -22,9 +33,9 @@ def win?(first, second)
   what_beats_what[first].include?(second)
 end
 
-def display_current_score(total_score)
-  prompt("The score is: Player - #{total_score[:player]} : " \
-  "Computer - #{total_score[:computer]}")
+def display_current_score(score)
+  prompt("The score is: Player - #{score[:player]} : " \
+  "Computer - #{score[:computer]}")
 end
 
 def display_choices
@@ -39,7 +50,7 @@ def display_choices
   prompt(choice_prompt)
 end
 
-def choices
+def get_players_choices
   player_choice = nil
   loop do
     player_choice = gets.chomp
@@ -68,22 +79,22 @@ def display_result(player, computer)
   end
 end
 
-def update_score(player, computer, total_score)
+def update_score(player, computer, score)
   if win?(player, computer)
-    total_score[:player] += 1
+    score[:player] += 1
   elsif win?(computer, player)
-    total_score[:computer] += 1
+    score[:computer] += 1
   else
-    total_score
+    score
   end
 end
 
-def grand_winner?(total_score)
-  total_score[:player] == 5 || total_score[:computer] == 5
+def grand_winner?(score)
+  score[:player] == 5 || score[:computer] == 5
 end
 
-def declare_grand_winner(total_score)
-  if total_score[:player] == 5
+def declare_grand_winner(score)
+  if score[:player] == 5
     prompt("You are the grand winner!")
   else
     prompt("Computer is the grand winner!")
@@ -96,22 +107,20 @@ def play_again?
   answer.downcase.start_with?('y')
 end
 
-prompt("Welcome to Rock, Paper, Scissors, Spock, Lizard!")
-prompt("First to win 5 games will be the grand winner.  " \
-        "Press any button to play.")
-gets.chomp
+display_welcome_message
+continue_game
 clear
 
 loop do
-  total_score = { player: 0, computer: 0 }
-  until grand_winner?(total_score)
-    display_current_score(total_score)
+  score = { player: 0, computer: 0 }
+  until grand_winner?(score)
+    display_current_score(score)
     display_choices
-    choice, computer_choice = choices
+    choice, computer_choice = get_players_choices
     display_result(choice, computer_choice)
-    update_score(choice, computer_choice, total_score)
+    update_score(choice, computer_choice, score)
   end
-  declare_grand_winner(total_score)
+  declare_grand_winner(score)
   prompt("Do you want to start another series?")
   break unless play_again?
 end

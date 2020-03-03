@@ -1,10 +1,22 @@
 
+# def reverse(array)
+#   new_array = []
+#   array.each { |item| new_array.unshift(item) }
+#   new_array
+# end
+
+## Using each_with_object
+# def reverse(array)
+#   array.each_with_object([]) do |item, new_array|
+#     new_array.unshift(item)
+#   end
+# end
+
+## Their solution
 def reverse(array)
-  new_array = []
-  array.each do |item|
-    new_array.unshift(item)
-  end
-  new_array
+  result_array = []
+  array.reverse_each { |element| result_array << element }
+  result_array
 end
 
 list = [1, 3, 2]                      # => [1, 3, 2]
