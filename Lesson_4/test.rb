@@ -1,14 +1,21 @@
 
-def greeting
-    puts 'Hello!'
-end
+st = "ak0tzp"
 
-number_of_greetings = 2
-
-while number_of_greetings > 0
-    greeting
-    number_of_greetings -= 1
+new_array = st.chars.select do |item|
+    item == 'k'
 end
+p new_array
+
+# def greeting
+#     puts 'Hello!'
+# end
+
+# number_of_greetings = 2
+
+# while number_of_greetings > 0
+#     greeting
+#     number_of_greetings -= 1
+# end
 
 # loop do
 #   number = rand(1..10)   # a random number between 1 and 10
