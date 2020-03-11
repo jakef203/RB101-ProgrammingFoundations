@@ -1,13 +1,19 @@
 
-def word_lengths(string)
-  result = []
-  string = string.split
-  string.each do |ea|
-    result << "#{ea} #{ea.size}"
-  end
-  result
-end
+# def word_lengths(string)
+#   result = []
+#   string = string.split
+#   string.each do |ea|
+#     result << "#{ea} #{ea.size}"
+#   end
+#   result
+# end
 
+def word_lengths(string)
+  words = words.split
+  words.map do |word|
+    "#{word} #{word.size}"
+  end
+end
 puts word_lengths("cow sheep chicken") == ["cow 3", "sheep 5", "chicken 7"]
 
 puts word_lengths("baseball hot dogs and apple pie") ==
