@@ -102,6 +102,7 @@ def declare_grand_winner(score)
 end
 
 def play_again?
+  prompt("Do you want to start another series?")
   answer = gets.chomp
   clear
   answer.downcase.start_with?('y')
@@ -121,7 +122,6 @@ loop do
     update_score(choice, computer_choice, score)
   end
   declare_grand_winner(score)
-  prompt("Do you want to start another series?")
   break unless play_again?
 end
 
