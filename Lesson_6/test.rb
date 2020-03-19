@@ -17,16 +17,20 @@
 # p new_arr 
 # p counter
 
-s = 
-'''
-Hi there
-How are you
-'''
+# s = 
+# '''
+# Hi there
+# How are you
+# '''
 
-r = 
-'''
-Not bad
-What\'s up
-'''
+# r = 
+# '''
+# Not bad
+# What\'s up
+# '''
 
-p s
+# p s
+
+puts "hello"
+\033[<1>A
+puts "hi there"

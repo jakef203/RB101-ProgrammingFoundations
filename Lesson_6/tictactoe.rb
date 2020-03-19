@@ -5,7 +5,7 @@ WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
-GO_FIRST = 'choose' # can also set this to 'player' or 'computer'
+GO_FIRST = 'player' # can also set this to 'player' or 'computer'
 def prompt(message)
   puts "--> #{message}"
 end
