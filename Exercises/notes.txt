@@ -1,0 +1,22 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Medium 1
+
+Word-to-digit - Go back and work on bonus features you couldn't get
+
+Ex.10-fib_last_digit.rb - Didn't do the very last part of bonus
+, trying to find faster way to calculate last digit of a certain Fib #

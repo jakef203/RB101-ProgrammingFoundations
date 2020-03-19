@@ -16,28 +16,19 @@ def continue_game
   print "            \r"
 end
 
-# rubocop:disable Metrics/MethodLength
 def who_goes_first?
-  if GO_FIRST == 'player'
-    puts "Player will go first"
-    'player'
-  elsif GO_FIRST == 'computer'
-    puts "Computer will go first"
-    'computer'
-  else
-    go_first = nil
-    loop do
-      puts "Who will go first?  Enter 'C' for computer or 'P' for player:"
-      go_first = gets.chomp
-      if ['c', 'p'].include?(go_first)
-        return (go_first == 'p' ? 'player' : 'computer')
-      end
-      puts "Invalid choice. Please choose 'C' or 'P'."
+  go_first = nil
+  loop do
+    prompt "Who will go first?  Enter 'C' for computer or 'P' for player:"
+    go_first = gets.chomp
+    if ['c', 'p'].include?(go_first)
+      return (go_first == 'p' ? 'player' : 'computer')
     end
+    prompt "Invalid choice. Please choose 'C' or 'P'."
   end
 end
 
-# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 def display_board(brd, score)
   buffer = ' ' * 15
   system "clear"
@@ -77,7 +68,7 @@ def joinor(array, punc = ',', ending = 'or')
   if array.size == 1
     array[0].to_s
   elsif array.size == 2
-    "#{array[0]} or #{array[1]}"
+    "#{array[0]} #{ending} #{array[1]}"
   else
     separator = punc + ' '
     "#{array[0..-2].join(separator)}#{separator}#{ending} #{array[-1]}"
@@ -188,9 +179,10 @@ def play_again?
 end
 
 system "clear"
-puts "Welcome to Tic Tac Toe! First to 5 games is winner."
-if GO_FIRST == 'player' || GO_FIRST == 'computer'
-  current_player = who_goes_first?
+prompt "Welcome to Tic Tac Toe! First to 5 games is winner."
+if ['player', 'computer'].include?(GO_FIRST)
+  current_player = GO_FIRST
+  prompt "#{current_player.capitalize} will go first."
   continue_game
 end
 loop do
@@ -199,6 +191,8 @@ loop do
     board = initialize_board
     if GO_FIRST == 'choose'
       current_player = who_goes_first?
+      prompt "#{current_player.capitalize} will go first."
+      continue_game
     end
     loop do
       display_board(board, score)
