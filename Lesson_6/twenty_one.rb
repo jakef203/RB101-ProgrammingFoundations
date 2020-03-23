@@ -1,4 +1,4 @@
-require 'pry'
+
 require 'io/console'
 GAME_MAX = 21 # Can change to 31, 41, 51, etc.
 DEALER_STAY = 17
@@ -42,7 +42,6 @@ end
 
 def won_5_games(score)
   score.value?(5)
-  # This works the same as score[:dealer] == 5 || score[:player] == 5
 end
 
 def joinor(array, punc = ',', ending = 'or')
@@ -86,6 +85,18 @@ def hit_or_stay?
     prompt "Please enter correct letter."
   end
   answer == 's' ? 'stay' : 'hit'
+end
+
+def person_hits(card_deck, card_hand, person)
+  prompt "#{person.to_s.capitalize} hits!"
+  deal_card(card_deck, card_hand, person)
+  continue_game
+  unless busted?(card_hand, person)
+    prompt "#{person.to_s.capitalize} has: " \
+           "#{joinor(card_hand[person][:cards], ',', 'and')} " \
+           "for a total of #{card_hand[person][:total]}"
+    continue_game
+  end
 end
 
 def busted?(card_hand, person)
@@ -170,53 +181,42 @@ loop do
     prompt "Dealer has: #{card_hand[:dealer][:cards][1]} and ?"
     prompt "Player has: #{joinor(card_hand[:player][:cards], ',', 'and')} " \
           "for a total of #{card_hand[:player][:total]}"
-    answer = nil
+    # Player turn
     loop do
       answer = hit_or_stay?
       break if answer == 'stay'
-      deal_card(card_deck, card_hand, :player)
-      prompt "Player chose to hit!"
-      continue_game
-      prompt "Player has: #{joinor(card_hand[:player][:cards], ',', 'and')} " \
-            "for a total of #{card_hand[:player][:total]}"
+      person_hits(card_deck, card_hand, :player)
       if busted?(card_hand, :player)
-        continue_game
         puts ""
+        display_result(card_hand, score)
+        continue_game
         break
       end
     end
+    next if busted?(card_hand, :player)
+    prompt "Player stays with a #{card_hand[:player][:total]}."
+    continue_game
+    puts ""
 
-    if busted?(card_hand, :player)
-      display_result(card_hand, score)
-      continue_game
-      next
-    else
-      prompt "Player stays with a #{card_hand[:player][:total]}."
-      continue_game
-      puts ""
-    end
+    #  Dealer turn
     prompt "Dealer has: #{joinor(card_hand[:dealer][:cards], ',', 'and')} " \
           "for a total of #{card_hand[:dealer][:total]}."
     loop do
       break if card_hand[:dealer][:total] >= DEALER_STAY
-      prompt "Dealer hits!"
-      continue_game
-      deal_card(card_deck, card_hand, :dealer)
-      puts ""
-      break if busted?(card_hand, :dealer)
-      prompt "Dealer has: #{joinor(card_hand[:dealer][:cards], ',', 'and')} " \
-                   "for a total of #{card_hand[:dealer][:total]}."
+      person_hits(card_deck, card_hand, :dealer)
+      if busted?(card_hand, :dealer)
+        puts ""
+        display_result(card_hand, score)
+        continue_game
+        break
+      end
     end
+    next if busted?(card_hand, :dealer)
 
-    if busted?(card_hand, :dealer)
-      display_result(card_hand, score)
-      continue_game
-      next
-    else
-      prompt "Dealer stays at #{card_hand[:dealer][:total]}."
-      puts
-      continue_game
-    end
+    # Display end results if neither bust
+    prompt "Dealer stays at #{card_hand[:dealer][:total]}."
+    puts ""
+    continue_game
     display_result(card_hand, score)
     continue_game
     next
