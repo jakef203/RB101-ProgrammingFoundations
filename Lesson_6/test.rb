@@ -31,6 +31,21 @@
 
 # p s
 
-puts "hello"
-\033[<1>A
-puts "hi there"
+# puts "hello"
+# \033[<1>A
+# puts "hi there"
+
+def hello
+  puts "hello"
+  sleep 1
+  puts "Press any button to continue"
+  continue = gets.chomp
+  return nil unless continue == nil?
+end
+hello
+
+puts "good job"
+
+
+
+

@@ -20,3 +20,10 @@ Word-to-digit - Go back and work on bonus features you couldn't get
 
 Ex.10-fib_last_digit.rb - Didn't do the very last part of bonus
 , trying to find faster way to calculate last digit of a certain Fib #
+
+Medium 2
+
+matching_parentheses.rb - Maybe go back and mess with the single and double
+quotation using %q, %, %Q, do these need to be balanced?
+What if you have a sentence - "How's it going today?"
+

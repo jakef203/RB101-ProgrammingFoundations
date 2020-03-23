@@ -41,7 +41,8 @@ def continue_game
 end
 
 def won_5_games(score)
-  score[:player] == 5 || score[:dealer] == 5
+  score.value?(5)
+  # This works the same as score[:dealer] == 5 || score[:player] == 5
 end
 
 def joinor(array, punc = ',', ending = 'or')
