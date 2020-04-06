@@ -1,10 +1,12 @@
 
-st = "ak0tzp"
+puts "hi"
 
-new_array = st.chars.select do |item|
-    item == 'k'
-end
-p new_array
+# st = "ak0tzp"
+
+# new_array = st.chars.select do |item|
+#     item == 'k'
+# end
+# p new_array
 
 # def greeting
 #     puts 'Hello!'

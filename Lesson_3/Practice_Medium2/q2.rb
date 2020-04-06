@@ -46,8 +46,8 @@ def an_illustrative_method(a_outer, b_outer, c_outer, d_outer, a_outer_id, b_out
   puts
 
   a_outer = 22
-  b_outer = "thirty three"
-  c_outer = [44]
+  b_outer << "thirty three"
+  c_outer << 44
   d_outer = c_outer[0]
 
   puts "a_outer inside after reassignment is #{a_outer} with an id of: #{a_outer_id} before and: #{a_outer.object_id} after."

@@ -1,13 +1,13 @@
 
 
-# def crunch(string)
+def crunch(string)
 
-#   new_string = ''
-#   string.each_char do |char|
-#       new_string << char unless char == new_string[-1]
-#   end
-#   new_string
-# end
+  new_string = ''
+  string.each_char do |char|
+      new_string << char unless char == new_string[-1]
+  end
+  new_string
+end
 
 # def crunch(text)
 #   index = 0
@@ -19,9 +19,9 @@
 #   crunch_text
 # end
 
-def crunch(text)
-  text.gsub(/[A-Za-z ]{2,}/i, /[A-Za-z ]{1}/)
-end
+# def crunch(text)
+#   text.gsub(/[A-Za-z ]{2,}/i, /[A-Za-z ]{1}/)
+# end
 
 puts crunch('ddaaiillyy ddoouubbllee') == 'daily double' 
 puts crunch('4444abcabccba') == '4abcabcba'

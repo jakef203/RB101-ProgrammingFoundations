@@ -29,14 +29,39 @@
 
 #       Implicit requirements:
 
-def substrings(str)
-  result = []
-  0.upto(str.size - 2).each do |start_idx|
-    (start_idx + 1).upto (str.size - 1) do |end_idx|
-      result << str[start_idx..end_idx]
-    end
-  end
-  result
+# def substrings(str)
+#   result = []
+#   0.upto(str.size - 2).each do |start_idx|
+#     (start_idx + 1).upto (str.size - 1) do |end_idx|
+#       result << str[start_idx..end_idx]
+#     end
+#   end
+#   result
+# end
+
+# puts substrings('abcdefghjilk')
+
+def is_palindrome?(string)
+  string == string.reverse
 end
 
-puts substrings('abcdefghjilk')
+def palindrome_substrings(str)
+  return "" if str == ""
+  all_substrings = []
+  0.upto(str.size - 2) do |start_idx|
+    (start_idx + 1).upto(str.size - 1) do |end_idx|
+      substring = str[start_idx..end_idx]
+      all_substrings << substring
+    end
+  end
+
+  palindromes = 
+    all_substrings.select { |substring| is_palindrome?(substring) }
+  palindromes
+end
+
+p palindrome_substrings("abcddcbA")
+p palindrome_substrings("")
+
+
+       
